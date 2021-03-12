@@ -1,5 +1,6 @@
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 main(List<String> args) => runApp(ExpenseApp());
 
@@ -43,7 +44,6 @@ class MyHomePage extends StatelessWidget {
         title: Text('Despesas Pessoais'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
@@ -62,12 +62,12 @@ class MyHomePage extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                           border: Border.all(
-                        color: Colors.purpleAccent,
+                        color: Colors.purple,
                         width: 2,
                       )),
                       padding: const EdgeInsets.all(10),
                       child: Text(
-                        e.value.toString(),
+                        'R\$${e.value.toStringAsFixed(2)}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.purple,
@@ -86,7 +86,7 @@ class MyHomePage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          e.date.toString(),
+                          DateFormat('d MMM y').format(e.date),
                           style: TextStyle(color: Colors.grey),
                         ),
                       ],
@@ -96,6 +96,34 @@ class MyHomePage extends StatelessWidget {
               );
             }).toList(),
           ),
+          Card(
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Título'),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Valor (R\$)'),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          primary: Colors.purple,
+                        ),
+                        onPressed: () {},
+                        child: Text('Nova Transação'),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
